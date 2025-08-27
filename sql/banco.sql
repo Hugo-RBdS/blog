@@ -17,5 +17,13 @@ CREATE TABLE usuario (
 
 CREATE TABLE post (
     id int NOT NULL AUTO_INCREMENT,
-    titulo varchar(255)
-)
+    titulo varchar(255) not null,
+    texto text not null,
+    usuario_id int not null,
+    data_criacao datetime not null default CURRENT_TIMESTAMP,
+    data_postagem datetime not null,
+    PRIMARY KEY (id),
+    KEY fk_post_usuario_idx (usuario_id),
+    constraint fk_post_usuario FOREIGN KEY (usuario_id) REFERENCES usuario (id)
+
+);
