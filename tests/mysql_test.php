@@ -7,7 +7,7 @@ require_once '../core/mysql.php';
 
 insert_teste('Joao', 'joao@ifsp.edu.br','123456');
 buscar_teste();
-update_teste(2, 'Gabriela', 'g.negrisoli@aluno.ifsp.edu.br');
+update_teste(2, 'Hugo', 'hugo.silveira@aluno.ifsp.edu.br');
 buscar_teste();
 
 // Teste inserção banco de dados
