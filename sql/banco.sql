@@ -1,29 +1,29 @@
-DROP DATABASE IF EXISTS blog;
+drop database if exists blog;
 
-CREATE DATABASE IF NOT EXISTS blog;
-
+create database if not exists blog ;
 use blog;
 
-CREATE TABLE usuario (
-    id int not null AUTO_INCREMENT,
-    nome varchar(50) not null,
-    email varchar(255) not null,
-    senha varchar(60) not null,
-    data_criacao datetime not null default CURRENT_TIMESTAMP,
-    ativo tinyint not null default '0',
-    adm tinyint not null default '0',
-    PRIMARY KAY (ID)
-)
-
-CREATE TABLE post (
-    id int NOT NULL AUTO_INCREMENT,
-    titulo varchar(255) not null,
-    texto text not null,
-    usuario_id int not null,
-    data_criacao datetime not null default CURRENT_TIMESTAMP,
-    data_postagem datetime not null,
-    PRIMARY KEY (id),
-    KEY fk_post_usuario_idx (usuario_id),
-    constraint fk_post_usuario FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-
+create table usuario
+(
+id int not null auto_increment primary key,
+nome varchar(50) not null,
+email varchar(225) not null,
+senha char(60) not null,
+data_criacao datetime not null default current_timestamp,
+ativo tinyint(4) not null default '0',
+adm tinyint(4) not null default '0'
 );
+
+create table post
+(
+id int not null auto_increment primary key,
+titulo varchar(225) not null,
+texto text not null,
+usuario_id int(11) not null,
+data_criacao datetime not null default current_timestamp,
+data_postagem datetime not null,
+foreign key (usuario_id) references usuario (id)
+);
+
+SELECT * FROM usuario;
+UPDATE `blog`.`usuario` SET `ativo`='1', `adm`='1' WHERE `id`='1';
