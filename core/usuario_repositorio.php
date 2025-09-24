@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/funcoes.php';
 require_once 'conexao_mysql.php';
 require_once 'sql.php';
-require_once 'mysqli.php';
+require_once 'mysql.php';
 $salt = '$exemplosaltifsp';
 
 foreach ($_POST as $indice => $dado) {
@@ -46,7 +46,7 @@ switch($acao){
         ];
 
         $retorno = buscar('usuario', ['id', 'nome', 'email', 'senha', 'adm'], $criterio);
-        echo $retorno;
+
         if (count($retorno) > 0) {
             if (crypt($senha, $salt) == $retorno[0]['senha']) {
                 $_SESSION['login']['usuario'] = $retorno[0];
@@ -99,5 +99,8 @@ switch($acao){
         exit;
         break;
     }
-header('Location: ../index.php');
+
+        header('Location: ../index.php');
+
+
 ?>

@@ -3,11 +3,11 @@
 require_once '../includes/funcoes.php';
 require_once '../core/conexao_mysql.php';
 require_once '../core/sql.php';
-require_once '../core/mysqli.php';
+require_once '../core/mysql.php';
 
-insert_teste('João', 'joao@ifsp.edu.br','123456');
+insert_teste('Joao', 'joao@ifsp.edu.br','123456');
 buscar_teste();
-update_teste(2, 'Murilo Amâncio', 'musilva@gmail.com');
+update_teste(2, 'Gabriela', 'g.negrisoli@aluno.ifsp.edu.br');
 buscar_teste();
 
 // Teste inserção banco de dados

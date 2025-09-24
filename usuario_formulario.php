@@ -21,7 +21,7 @@
                         require_once 'includes/funcoes.php';
                         require_once 'core/conexao_mysql.php';
                         require_once 'core/sql.php';
-                        require_once 'core/mysqli.php';
+                        require_once 'core/mysql.php';
 
                         if(isset($_SESSION['login'])){
                             $id = (int) $_SESSION['login']['usuario']['id'];
