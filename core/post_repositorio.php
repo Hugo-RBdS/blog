@@ -4,7 +4,7 @@ require_once '../includes/valida_login.php';
 require_once '../includes/funcoes.php';
 require_once 'conexao_mysql.php';
 require_once 'sql.php';
-require_once 'mysql.php';
+require_once 'mysqli.php';
 
 foreach ($_POST as $indice => $dado) {
     $$indice = limparDados($dado);
@@ -16,11 +16,11 @@ foreach ($_GET as $indice => $dado) {
 
 $id = (int)$id;
 
-switch ($acao) {
+switch($acao) {
     case 'insert':
         $dados = [
-            'titulo' => $titulo,
-            'texto' => $texto,
+            'titulo'     => $titulo,
+            'texto'      => $texto,
             'data_postagem' => "$data_postagem $hora_postagem",
             'usuario_id' => $_SESSION['login']['usuario']['id']
         ];
@@ -35,10 +35,10 @@ switch ($acao) {
 
 case 'update':
     $dados = [
-        'titulo' => $titulo,
-        'texto' => $texto,
-        'data_postagem' => "$data_postagem $hora_postagem",
-        'usuario_id' => $_SESSION['login']['usuario']['id']
+        'titulo'       => $titulo,
+        'texto'        => $texto,
+        'data_postagem'=> "$data_postagem $hora_postagem",
+        'usuario_id'   => $_SESSION['login']['usuario']['id']
     ];
 
     $criterio = [
@@ -67,5 +67,4 @@ case 'delete':
 }
 
 header('Location: ../index.php');
-
 ?>

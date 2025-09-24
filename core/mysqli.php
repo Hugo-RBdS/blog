@@ -1,10 +1,10 @@
 <?php
 
-function insere(string $entidade, array $dados): bool
+function insere(string $entidade, array $dados) : bool
 {
     $retorno = false;
 
-    foreach ($dados as $campo => $dado) {
+    foreach ($dados as $campo => $dado){
         $coringa[$campo] = '?';
         $tipo[] = gettype($dado)[0];
         $$campo = $dado;
@@ -20,7 +20,7 @@ function insere(string $entidade, array $dados): bool
 
     mysqli_stmt_execute($stmt);
 
-    $retorno = (bool) mysqli_stmt_affected_rows($stmt);
+    $retorno = (boolean) mysqli_stmt_affected_rows($stmt);
 
     $_SESSION['errors'] = mysqli_stmt_error_list($stmt);
 
@@ -31,25 +31,26 @@ function insere(string $entidade, array $dados): bool
     return $retorno;
 }
 
-function atualiza(string $entidade, array $dados, array $criterio = []): bool
+function atualiza(string $entidade, array $dados, array $criterio = []) : bool
 {
     $retorno = false;
 
-    foreach ($dados as $campo => $dado) {
+    foreach ($dados as $campo => $dado){
         $coringa_dados[$campo] = '?';
         $tipo[] = gettype($dado)[0];
         $$campo = $dado;
     }
 
     foreach ($criterio as $expressao) {
-        $dado = $expressao[count($expressao) - 1];
+        $dado = $expressao[count($expressao) -1];
+
         $tipo[] = gettype($dado)[0];
         $expressao[count($expressao) - 1] = '?';
         $coringa_criterio[] = $expressao;
 
         $nome_campo = (count($expressao) < 4) ? $expressao[0] : $expressao[1];
 
-        if (isset($nome_campo)) {
+        if(isset($nome_campo)){
             $nome_campo = $nome_campo . '_' . rand();
         }
 
@@ -64,19 +65,17 @@ function atualiza(string $entidade, array $dados, array $criterio = []): bool
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
-    if (isset($tipo)) {
-        $comando = 'mysqli_stmt_bind_param($stmt, "';
-        $comando .= implode('', $tipo) . '", ';
-        $comando .= '$' . implode(', $', array_keys($dados));
-        $comando .= ', $' . implode(', $', $campos_criterio);
-        $comando .= ');';
-
+    if(isset($tipo)){
+        $comando = "mysqli_stmt_bind_param(\$stmt, '" . implode('', $tipo) . "'";
+        $comando .= ", $" . implode(", $", array_keys($dados));
+        $comando .= ", $" . implode(", $", $campos_criterio);
+        $comando .= ");";
         eval($comando);
     }
 
     mysqli_stmt_execute($stmt);
 
-    $retorno = (bool) mysqli_stmt_affected_rows($stmt);
+    $retorno = (boolean) mysqli_stmt_affected_rows($stmt);
 
     $_SESSION['errors'] = mysqli_stmt_error_list($stmt);
 
@@ -87,16 +86,14 @@ function atualiza(string $entidade, array $dados, array $criterio = []): bool
     return $retorno;
 }
 
-
-function deleta(string $entidade, array $criterio = []): bool
+function deleta(string $entidade, array $criterio = []) : bool
 {
     $retorno = false;
 
     $coringa_criterio = [];
 
     foreach ($criterio as $expressao) {
-        $dado = $expressao[count($expressao) - 1];
-
+        $dado = $expressao[count($expressao) -1];
         $tipo[] = gettype($dado)[0];
         $expressao[count($expressao) - 1] = '?';
         $coringa_criterio[] = $expressao;
@@ -114,18 +111,16 @@ function deleta(string $entidade, array $criterio = []): bool
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
-    if (isset($tipo)) {
-        $comando = 'mysqli_stmt_bind_param($stmt, "';
-        $comando .= implode('', $tipo) . '", ';
-        $comando .= '$' . implode(', $', $campos_criterio);
-        $comando .= ');';
-
+    if(isset($tipo)){
+        $comando = "mysqli_stmt_bind_param(\$stmt, '" . implode('', $tipo) . "'";
+        $comando .= ", $" . implode(", $", $campos_criterio);
+        $comando .= ");";
         eval($comando);
     }
 
     mysqli_stmt_execute($stmt);
 
-    $retorno = (bool) mysqli_stmt_affected_rows($stmt);
+    $retorno = (boolean) mysqli_stmt_affected_rows($stmt);
 
     $_SESSION['errors'] = mysqli_stmt_error_list($stmt);
 
@@ -135,14 +130,13 @@ function deleta(string $entidade, array $criterio = []): bool
 
     return $retorno;
 }
-
-function buscar(string $entidade, array $campos = ['*'], array $criterio = [], string $ordem = null): array
+function buscar(string $entidade, array $campos = ['*'], array $criterio = [], string $ordem = null) : array
 {
     $retorno = false;
     $coringa_criterio = [];
 
     foreach ($criterio as $expressao) {
-        $dado = $expressao[count($expressao) - 1];
+        $dado = $expressao[count($expressao) -1];
 
         $tipo[] = gettype($dado)[0];
         $expressao[count($expressao) - 1] = '?';
@@ -150,7 +144,7 @@ function buscar(string $entidade, array $campos = ['*'], array $criterio = [], s
 
         $nome_campo = (count($expressao) < 4) ? $expressao[0] : $expressao[1];
 
-        if (isset($$nome_campo)) {
+        if(isset($nome_campo)){
             $nome_campo = $nome_campo . '_' . rand();
         }
 
@@ -165,19 +159,19 @@ function buscar(string $entidade, array $campos = ['*'], array $criterio = [], s
 
     $stmt = mysqli_prepare($conexao, $instrucao);
 
-    if (isset($tipo)) {
-        $comando = 'mysqli_stmt_bind_param($stmt, "';
-        $comando .= implode('', $tipo) . '", ';
-        $comando .= '$' . implode(', $', $campos_criterio);
-        $comando .= ');';
+    if(isset($tipo)){
+        $comando = "mysqli_stmt_bind_param(\$stmt, '" . implode('', $tipo) . "'";
+        $comando .= ", $" . implode(", $", $campos_criterio);
+        $comando .= ");";
 
         eval($comando);
     }
 
     mysqli_stmt_execute($stmt);
 
-    if ($result = mysqli_stmt_get_result($stmt)) {
+    if($result = mysqli_stmt_get_result($stmt)){
         $retorno = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
         mysqli_free_result($result);
     }
 
@@ -191,5 +185,4 @@ function buscar(string $entidade, array $campos = ['*'], array $criterio = [], s
 
     return $retorno;
 }
-
 ?>

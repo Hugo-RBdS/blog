@@ -1,47 +1,39 @@
 <?php
+
 require_once '../core/sql.php';
 
-$id = 1;
-$nome = 'hugo';
-$email = 'hugo.silveira@aluno.ifsp.edu.br';
-$senha = 'abc123';
-$dados = [
-    'nome' => $nome,
-    'email' => $email,
-    'senha' => $senha
-];
+$id     = 1;
+$nome   = 'Hugo Rantichieri Bruno da Silveira';
+$email  = 'hugo.silveira@aluno.ifsp.edu.br';
+$senha  = 'abc123';
+$dados  = ['nome'  => $nome,
+           'email' => $email,
+           'senha' => $senha];
 
 $entidade = 'usuario';
 $criterio = [['id', '=', $id]];
-$campos = ['id', 'nome', 'email'];
-
+$campos   = ['id', 'nome', 'email'];
 print_r($dados);
-echo '  
-';
+echo '<br>';
 print_r($campos);
-echo '  
-';
+echo '<br>';
 print_r($criterio);
-echo '  
-';
+echo '<br>';
 
 // Teste geração INSERT
 $instrucao = insert($entidade, $dados);
-echo $instrucao . '  
-';
+echo $instrucao.'<BR>';
 
 // Teste geração UPDATE
 $instrucao = update($entidade, $dados, $criterio);
-echo $instrucao . '  
-';
+echo $instrucao.'<BR>';
 
 // Teste geração SELECT
 $instrucao = select($entidade, $campos, $criterio);
-echo $instrucao . '  
-';
+echo $instrucao.'<BR>';
 
 // Teste geração DELETE
 $instrucao = delete($entidade, $criterio);
-echo $instrucao . '  
-';
+echo $instrucao.'<BR>';
+
 ?>
