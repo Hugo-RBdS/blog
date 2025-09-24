@@ -3,9 +3,9 @@
 require_once '../core/sql.php';
 
 $id     = 1;
-$nome   = 'Hugo Rantichieri Bruno da Silveira';
-$email  = 'hugo.silveira@aluno.ifsp.edu.br';
-$senha  = 'abc123';
+$nome   = 'Murilo Silva Amâncio';
+$email  = 'murilot564@gmail.com';
+$senha  = 'DEWCASSIO';
 $dados  = ['nome'  => $nome,
            'email' => $email,
            'senha' => $senha];
