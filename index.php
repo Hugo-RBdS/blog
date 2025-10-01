@@ -37,6 +37,9 @@
 </html>
 
 <?php
+
+date_default_timezone_set(timezoneId: 'America/Sao_Paulo');
+
 foreach($_GET as $indice => $dado){
     $$indice = limparDados($dado);
 }

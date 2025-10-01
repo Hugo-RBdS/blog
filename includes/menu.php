@@ -1,28 +1,27 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <div class="card">
     <div class="card-header">
         Menu
     </div>
     <div class="card-body">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="usuario_formulario.php">Cadastre-se</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login_formulario.php">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="post_formulario.php">Incluir Post</a>
-            </li>
+        <div class="list-group">
+            <a href="index.php" class="list-group-item list-group-item-action">Página Inicial</a>
 
-            <?php if ((isset($_SESSION['login'])) 
-                      && ($_SESSION['login']['usuario']['adm'] === 1)) : ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="usuarios.php">Usuários</a>
-                </li>
+            <?php if (isset($_SESSION['login'])): ?>
+                <a href="post_formulario.php" class="list-group-item list-group-item-action">Criar Post</a>
+                <a href="usuario_formulario.php" class="list-group-item list-group-item-action">Editar Perfil</a>
+                <a href="core/usuario_repositorio.php?acao=logout" class="list-group-item list-group-item-action">Logout</a>
+
+                <?php if (isset($_SESSION['login']['usuario']['adm']) && $_SESSION['login']['usuario']['adm'] == 1): ?>
+                    <a href="usuarios.php" class="list-group-item list-group-item-action">Lista de Usuários</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <a href="login_formulario.php" class="list-group-item list-group-item-action">Login</a>
             <?php endif; ?>
-        </ul>
+        </div>
     </div>
 </div>
