@@ -24,3 +24,7 @@ PRIMARY KEY (id),
 KEY fk_post_usuario_idx (usuario_id),
 CONSTRAINT fk_post_usuario FOREIGN KEY (usuario_id) REFERENCES usuario (id)
 );
+
+--UPDATE usuario SET ativo = 1 WHERE email = 'hogo@email.com';--
+
+--SELECT * FROM usuario;--
